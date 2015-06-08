@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingsCalendar.Domain", "TrainingsCalendar.Domain\TrainingsCalendar.Domain.csproj", "{78689CD3-6808-455D-9453-D43950B9DC56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingsCalendar.UnitTests", "TrainingsCalendar.UnitTests\TrainingsCalendar.UnitTests.csproj", "{1B37CC1C-5BF4-4605-B840-588365A64A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingsCalendar.WebUI", "TrainingsCalendar.WebUI\TrainingsCalendar.WebUI.csproj", "{3A7A6539-287C-4758-8C00-1737E82BC12C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78689CD3-6808-455D-9453-D43950B9DC56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78689CD3-6808-455D-9453-D43950B9DC56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78689CD3-6808-455D-9453-D43950B9DC56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78689CD3-6808-455D-9453-D43950B9DC56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B37CC1C-5BF4-4605-B840-588365A64A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B37CC1C-5BF4-4605-B840-588365A64A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B37CC1C-5BF4-4605-B840-588365A64A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B37CC1C-5BF4-4605-B840-588365A64A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A7A6539-287C-4758-8C00-1737E82BC12C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A7A6539-287C-4758-8C00-1737E82BC12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A7A6539-287C-4758-8C00-1737E82BC12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A7A6539-287C-4758-8C00-1737E82BC12C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
