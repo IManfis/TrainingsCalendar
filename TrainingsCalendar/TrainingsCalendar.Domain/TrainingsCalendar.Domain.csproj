@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -68,10 +76,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\ITrainingsRepository.cs" />
+    <Compile Include="Abstract\ITrainingsStore.cs" />
+    <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Concrete\TrainingsRepository.cs" />
+    <Compile Include="Concrete\TrainingsStore.cs" />
+    <Compile Include="Entities\Event.cs" />
+    <Compile Include="Entities\Trainer.cs" />
+    <Compile Include="Entities\Trainers_Training.cs" />
+    <Compile Include="Entities\Training.cs" />
+    <Compile Include="Migrations\201506090808131_InitialCreate.cs" />
+    <Compile Include="Migrations\201506090808131_InitialCreate.Designer.cs">
+      <DependentUpon>201506090808131_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506090835035_MigrateDB.cs" />
+    <Compile Include="Migrations\201506090835035_MigrateDB.Designer.cs">
+      <DependentUpon>201506090835035_MigrateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506090808131_InitialCreate.resx">
+      <DependentUpon>201506090808131_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506090835035_MigrateDB.resx">
+      <DependentUpon>201506090835035_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

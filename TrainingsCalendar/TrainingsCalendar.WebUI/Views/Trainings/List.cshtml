@@ -1,0 +1,11 @@
+﻿@model IEnumerable<TrainingsCalendar.WebUI.Models.TrainingsListViewModel>
+@foreach (var item in Model)
+{
+    <ul>
+        @item.Partition
+        @foreach (var x in item.TrainingName)
+        {
+            <li style="list-style-type: none; padding-left: 10px;">@x.TrainingName</li>
+        }
+    </ul>
+}

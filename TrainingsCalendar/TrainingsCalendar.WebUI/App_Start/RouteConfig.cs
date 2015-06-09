@@ -14,7 +14,7 @@ namespace TrainingsCalendar.WebUI
                 url: "{controller}/{action}/{id}",
                 defaults: new
                 {
-                    controller = "Home", 
+                    controller = "Trainings", 
                     action = "Index", 
                     id = UrlParameter.Optional
                 }

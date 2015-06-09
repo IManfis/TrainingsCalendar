@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Ninject;
+using TrainingsCalendar.Domain.Abstract;
+using TrainingsCalendar.Domain.Concrete;
 
 namespace TrainingsCalendar.WebUI.Infrastructure
 {
@@ -22,7 +24,8 @@ namespace TrainingsCalendar.WebUI.Infrastructure
         }
         private void AddBindings()
         {
-           
+            _ninjectKernel.Bind<ITrainingsRepository>().To<TrainingsRepository>();
+            _ninjectKernel.Bind<ITrainingsStore>().To<TrainingsStore>();
         }
     }
 }
