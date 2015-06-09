@@ -1,0 +1,59 @@
+﻿@model TrainingsCalendar.WebUI.Models.TrainingsViewModel
+
+@{
+    ViewBag.Title = "EditTraining";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>EditTraining</h2>
+
+@using (Html.BeginForm("EditTraining", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TrainingName)
+        </div>
+        <div class="editor-field">
+            <input type="text" name="TrainingName" class="form-control" value="@Model.TrainingName" style="margin-bottom: 10px;" />
+            @Html.ValidationMessageFor(model => model.TrainingName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.About)
+        </div>
+        <div class="editor-field">
+            <textarea type="text" name="About" class="form-control" rows="5" style="margin-bottom: 10px;">@Model.About</textarea>
+            @Html.ValidationMessageFor(model => model.About)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Partition)
+        </div>
+        <div class="editor-field">
+            <input type="text" name="Partition" class="form-control" value="@Model.Partition" style="margin-bottom: 10px;" />
+            @Html.ValidationMessageFor(model => model.Partition)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TrainingType)
+        </div>
+        <div class="editor-field">
+            <input type="text" name="TrainingType" class="form-control" value="@Model.TrainingType" style="margin-bottom: 10px;" />
+            @Html.ValidationMessageFor(model => model.TrainingType)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "TrainingList")
+</div>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TrainingsCalendar.WebUI.Models.TrainingsViewModel>
+@{
+    ViewBag.Title = "TrainingList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Training List</h2>
+<p>
+    @Html.ActionLink("Create New", "CreateTraining")
+</p>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainingName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.About)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainingType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Partition)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainingName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.About)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainingType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Partition)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditTraining", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "DeleteTraining", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div>
+        <a role="button" class="btn btn-default" href="@Url.Action("AdminPanel","Admin")">Back</a>
+    </div>
