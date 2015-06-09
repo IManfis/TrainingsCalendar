@@ -72,5 +72,98 @@ namespace TrainingsCalendar.Domain.Concrete
                 _context.SaveChanges();
             }
         }
+
+        public Trainer GetByIdTrainer(int id)
+        {
+            return _repository.Trainers.FirstOrDefault(p => p.ID == id);
+        }
+
+        public void SaveTrainer(Trainer model)
+        {
+            if (model.ID == 0)
+                _context.Trainers.Add(model);
+            else
+            {
+                Trainer dbEntry = _context.Trainers.Find(model.ID);
+                if (dbEntry != null)
+                {
+                    dbEntry.FirstName = model.FirstName;
+                    dbEntry.LastName = model.LastName;
+                }
+            }
+            _context.SaveChanges();
+        }
+
+        public void DeleteTrainer(int id)
+        {
+            Trainer dbEntry = _context.Trainers.Find(id);
+            if (dbEntry != null)
+            {
+                _context.Trainers.Remove(dbEntry);
+                _context.SaveChanges();
+            }
+        }
+
+        public Event GetByIdEvent(int id)
+        {
+            return _repository.Events.FirstOrDefault(p => p.ID == id);
+        }
+
+        public void SaveEvent(Event model)
+        {
+            if (model.ID == 0)
+                _context.Events.Add(model);
+            else
+            {
+                Event dbEntry = _context.Events.Find(model.ID);
+                if (dbEntry != null)
+                {
+                    dbEntry.StartDate = model.StartDate;
+                    dbEntry.EndDate = model.EndDate;
+                }
+            }
+            _context.SaveChanges();
+        }
+
+        public void DeleteEvent(int id)
+        {
+            Event dbEntry = _context.Events.Find(id);
+            if (dbEntry != null)
+            {
+                _context.Events.Remove(dbEntry);
+                _context.SaveChanges();
+            }
+        }
+
+        public Trainers_Training GetByIdTrainersTraining(int id)
+        {
+            return _repository.TrainersTrainings.FirstOrDefault(p => p.ID == id);
+        }
+
+        public void SaveTrainersTraining(Trainers_Training model)
+        {
+            if (model.ID == 0)
+                _context.TrainersTrainings.Add(model);
+            else
+            {
+                Trainers_Training dbEntry = _context.TrainersTrainings.Find(model.ID);
+                if (dbEntry != null)
+                {
+                    dbEntry.TrainersID = model.TrainersID;
+                    dbEntry.TrainingID = model.TrainingID;
+                }
+            }
+            _context.SaveChanges();
+        }
+
+        public void DeleteTrainersTraining(int id)
+        {
+            Trainers_Training dbEntry = _context.TrainersTrainings.Find(id);
+            if (dbEntry != null)
+            {
+                _context.TrainersTrainings.Remove(dbEntry);
+                _context.SaveChanges();
+            }
+        }
     }
 }

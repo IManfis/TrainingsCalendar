@@ -1,0 +1,44 @@
+﻿@model TrainingsCalendar.WebUI.Models.TrainersTrainingViewModel
+
+@{
+    ViewBag.Title = "EditTrainersTraining";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>EditTrainersTraining</h2>
+
+@using (Html.BeginForm("EditTrainersTraining", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.TrainingID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Training) : <strong>@Model.Training</strong>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Trainer)
+        </div>
+        <div class="editor-field">
+            <select name="TrainersID">
+                @foreach (var item in Model.TrainersLists)
+                {
+                    <option name="TrainersID" value="@item.TrainersID">@item.LastName @item.FirstName</option>
+                }
+            </select>
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "TrainersTrainingList")
+</div>

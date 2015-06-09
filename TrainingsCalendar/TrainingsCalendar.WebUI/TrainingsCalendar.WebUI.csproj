@@ -165,6 +165,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
+    <Compile Include="Models\EventsViewModel.cs" />
+    <Compile Include="Models\TrainersList.cs" />
+    <Compile Include="Models\TrainersTrainingViewModel.cs" />
+    <Compile Include="Models\TrainersViewModel.cs" />
+    <Compile Include="Models\TrainingList.cs" />
     <Compile Include="Models\TrainingsListViewModel.cs" />
     <Compile Include="Models\TrainingsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -238,12 +243,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-1.9.0.js" />
-    <Content Include="Scripts\jquery-1.9.0.min.js" />
-    <Content Include="Scripts\jquery-1.9.0.min.map" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
@@ -274,6 +279,14 @@
     <Content Include="Views\Admin\TrainingList.cshtml" />
     <Content Include="Views\Admin\AdminPanel.cshtml" />
     <Content Include="Views\Admin\EditTraining.cshtml" />
+    <Content Include="Views\Admin\TrainersList.cshtml" />
+    <Content Include="Views\Admin\EditTrainers.cshtml" />
+    <Content Include="Views\Admin\EventsList.cshtml" />
+    <Content Include="Views\Admin\EditEvents.cshtml" />
+    <Content Include="Views\Admin\CreateEvents.cshtml" />
+    <Content Include="Views\Admin\TrainersTrainingList.cshtml" />
+    <Content Include="Views\Admin\EditTrainersTraining.cshtml" />
+    <Content Include="Views\Admin\CreateTrainersTraining.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
