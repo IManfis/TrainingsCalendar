@@ -7,6 +7,7 @@ using TrainingsCalendar.WebUI.Models;
 
 namespace TrainingsCalendar.WebUI.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         //
