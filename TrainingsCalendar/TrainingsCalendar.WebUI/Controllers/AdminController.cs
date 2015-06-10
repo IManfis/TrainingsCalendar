@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using TrainingsCalendar.Domain.Abstract;
@@ -232,16 +233,16 @@ namespace TrainingsCalendar.WebUI.Controllers
 
         public ViewResult CreateTrainersTraining()
         {
-            Mapper.CreateMap<Trainers_Training, TrainingList>()
-                .ForMember(x => x.TrainingID, x => x.MapFrom(m => m.TrainingID))
-                .ForMember(x => x.TrainingName, x => x.MapFrom(m => m.Training.TrainingName));
-            var users = Mapper.Map<IEnumerable<Trainers_Training>, List<TrainingList>>(_store.GetAllTrainersTrainings());
+            Mapper.CreateMap<Training, TrainingList>()
+                .ForMember(x => x.TrainingID, x => x.MapFrom(m => m.ID))
+                .ForMember(x => x.TrainingName, x => x.MapFrom(m => m.TrainingName));
+            var users = Mapper.Map<IEnumerable<Training>, List<TrainingList>>(_store.GetAllTrainings());
 
-            Mapper.CreateMap<Trainers_Training, TrainersList>()
-                .ForMember(x => x.TrainersID, x => x.MapFrom(m => m.TrainersID))
-                .ForMember(x => x.FirstName, x => x.MapFrom(m => m.Trainers.FirstName))
-                .ForMember(x => x.LastName, x => x.MapFrom(m => m.Trainers.LastName));
-            var users1 = Mapper.Map<IEnumerable<Trainers_Training>, List<TrainersList>>(_store.GetAllTrainersTrainings());
+            Mapper.CreateMap<Trainer, TrainersList>()
+                .ForMember(x => x.TrainersID, x => x.MapFrom(m => m.ID))
+                .ForMember(x => x.FirstName, x => x.MapFrom(m => m.FirstName))
+                .ForMember(x => x.LastName, x => x.MapFrom(m => m.LastName));
+            var users1 = Mapper.Map<IEnumerable<Trainer>, List<TrainersList>>(_store.GetAllTrainers());
             return View(new TrainersTrainingViewModel { TrainersLists = users1, TrainingLists = users});
         }
 

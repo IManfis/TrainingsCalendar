@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Web.Mvc;
 using TrainingsCalendar.Domain.Abstract;
 using TrainingsCalendar.WebUI.Models;
@@ -24,11 +26,18 @@ namespace TrainingsCalendar.WebUI.Controllers
 
         public PartialViewResult List()
         {
-            var model = new Collection<TrainingsListViewModel>();
+            ICollection<TrainingsListViewModel> model = new Collection<TrainingsListViewModel>();
             foreach (var item in _repository.GetAllTrainings())
             {
-                var list = new TrainingsListViewModel{Partition = item.Partition,TrainingName = _repository.FilterTrainings(item.Partition)};
-                model.Add(list);
+                if (!model.Any())
+                {
+                    var list = new TrainingsListViewModel { Partition = item.Partition, TrainingName = _repository.FilterTrainings(item.Partition) };
+                    model.Add(list);
+                }else if (item.Partition != model.Last().Partition)
+                {
+                    var list = new TrainingsListViewModel { Partition = item.Partition, TrainingName = _repository.FilterTrainings(item.Partition) };
+                    model.Add(list);
+                }
             }
             return PartialView(model);
         }
