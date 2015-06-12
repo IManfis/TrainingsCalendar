@@ -1,32 +1,37 @@
-﻿@model IEnumerable<TrainingsCalendar.WebUI.Models.CalendarViewModel>
+﻿@using System.Drawing
+@model IEnumerable<TrainingsCalendar.WebUI.Models.CalendarViewModel>
 @{
     ViewBag.Title = "Index";
 }
 
-<table style="margin-left: 10px; margin-right: 20px;">
-    <tr>
-        <th>
-            Training
-        </th>
-        <th>
-            <pre>1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 </pre>
-        </th>
-    </tr>
-    @foreach (var obj in Model)
-    {
+    <div class="col-lg-offset-5"><h2>@Model.ElementAt(1).Mounth</h2></div>
+
+<div class="col-xs-11">
+    <table style="margin-left: 10px; margin-right: 20px;">
+
         <tr>
-            <td>
-                <p style="margin-right: 20px;">@obj.TrainingName</p>
-            </td>
-            <td>
-                <div class="progress">
-                    <div class="progress-bar " style="opacity:0;width: @((obj.StartDate-1)*100/31)%;"></div>
-                    <div class="progress-bar progress-bar-info" style="width: @((obj.EndDate-@obj.StartDate+1)*100/31)%;"></div>
-                </div>
-            </td>
-        </tr>}
-
-
-
-
-</table>
+            <th>
+                Training
+            </th>
+            <th>
+                <pre>
+                   @for (var i = 1; i <= Model.ElementAt(1).DaysInMonth; i++)
+                   {<span style="padding: 0px 10px; display: inline-block;">@i</span>}</pre>
+            </th>
+        </tr>
+@foreach (var mod in Model)
+{
+            <tr>
+                <td>
+                    <p style="margin-right: 20px;">@mod.TrainingName</p>
+                </td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar " style="-ms-opacity: 0; opacity: 0; width: @((mod.StartDate - 1) * 100 / 31)%;"></div>
+                        <div class="progress-bar progress-bar-info" style="width: @((mod.EndDate - @mod.StartDate + 1) * 100 / 31)%;"></div>
+                    </div>
+                </td>
+            </tr>
+}
+    </table>
+</div>

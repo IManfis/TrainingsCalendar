@@ -166,10 +166,10 @@ namespace TrainingsCalendar.WebUI.Controllers
 
         public ViewResult CreateEvents()
         {
-            Mapper.CreateMap<Event, TrainingList>()
-                .ForMember(x => x.TrainingID, x => x.MapFrom(m => m.TrainingID))
-                .ForMember(x => x.TrainingName, x => x.MapFrom(m => m.Training.TrainingName));
-            var users = Mapper.Map<IEnumerable<Event>, List<TrainingList>>(_store.GetAllEvents());
+            Mapper.CreateMap<Training, TrainingList>()
+                .ForMember(x => x.TrainingID, x => x.MapFrom(m => m.ID))
+                .ForMember(x => x.TrainingName, x => x.MapFrom(m => m.TrainingName));
+            var users = Mapper.Map<IEnumerable<Training>, List<TrainingList>>(_store.GetAllTrainings());
             return View(new EventsViewModel{TrainingList = users});
         }
 
