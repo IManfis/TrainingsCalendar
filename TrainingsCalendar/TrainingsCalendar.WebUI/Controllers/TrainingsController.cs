@@ -20,27 +20,32 @@ namespace TrainingsCalendar.WebUI.Controllers
 
         public ViewResult Index()
         {
-            return View();
-        }
-
-
-        public PartialViewResult List()
-        {
-            ICollection<TrainingsListViewModel> model = new Collection<TrainingsListViewModel>();
-            foreach (var item in _repository.GetAllTrainings())
+            List<CalendarViewModel> list = new List<CalendarViewModel>();
+            foreach (var item in _repository.GetAllEvents())
             {
-                if (!model.Any())
-                {
-                    var list = new TrainingsListViewModel { Partition = item.Partition, TrainingName = _repository.FilterTrainings(item.Partition) };
-                    model.Add(list);
-                }else if (item.Partition != model.Last().Partition)
-                {
-                    var list = new TrainingsListViewModel { Partition = item.Partition, TrainingName = _repository.FilterTrainings(item.Partition) };
-                    model.Add(list);
-                }
+                list.Add(new CalendarViewModel{TrainingName = item.Training.TrainingName, StartDate = item.StartDate.Day, EndDate = item.EndDate.Day, Mounth = item.StartDate.Month});
             }
-            return PartialView(model);
+            return View(list);
         }
+
+
+        //public PartialViewResult List()
+        //{
+        //    ICollection<TrainingsListViewModel> model = new Collection<TrainingsListViewModel>();
+        //    foreach (var item in _repository.GetAllTrainings())
+        //    {
+        //        if (!model.Any())
+        //        {
+        //            var list = new TrainingsListViewModel { Partition = item.Partition, TrainingName = _repository.FilterTrainings(item.Partition) };
+        //            model.Add(list);
+        //        }else if (item.Partition != model.Last().Partition)
+        //        {
+        //            var list = new TrainingsListViewModel { Partition = item.Partition, TrainingName = _repository.FilterTrainings(item.Partition) };
+        //            model.Add(list);
+        //        }
+        //    }
+        //    return PartialView(model);
+        //}
 
     }
 }
