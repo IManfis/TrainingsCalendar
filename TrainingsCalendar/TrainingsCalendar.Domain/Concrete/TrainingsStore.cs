@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TrainingsCalendar.Domain.Abstract;
 using TrainingsCalendar.Domain.Entities;
@@ -164,6 +165,96 @@ namespace TrainingsCalendar.Domain.Concrete
                 _context.TrainersTrainings.Remove(dbEntry);
                 _context.SaveChanges();
             }
+        }
+
+        public string GetStringMounth(int mounth)
+        {
+            string mounthS = null;
+            switch (mounth)
+            {
+                case 1:
+                    mounthS = "January";
+                    break;
+                case 2:
+                    mounthS = "February";
+                    break;
+                case 3:
+                    mounthS = "March";
+                    break;
+                case 4:
+                    mounthS = "April";
+                    break;
+                case 5:
+                    mounthS = "May";
+                    break;
+                case 6:
+                    mounthS = "June";
+                    break;
+                case 7:
+                    mounthS = "July";
+                    break;
+                case 8:
+                    mounthS = "August";
+                    break;
+                case 9:
+                    mounthS = "September";
+                    break;
+                case 10:
+                    mounthS = "October";
+                    break;
+                case 11:
+                    mounthS = "November";
+                    break;
+                case 12:
+                    mounthS = "December";
+                    break;
+            }
+            return mounthS;
+        }
+
+        public int GetIntMounth(string mounth)
+        {
+            int mounthS = 0;
+            switch (mounth)
+            {
+                case "January":
+                    mounthS = 1;
+                    break;
+                case "February":
+                    mounthS = 2;
+                    break;
+                case "March":
+                    mounthS = 3;
+                    break;
+                case "April":
+                    mounthS = 4;
+                    break;
+                case "May":
+                    mounthS = 5;
+                    break;
+                case "June":
+                    mounthS = 6;
+                    break;
+                case "July":
+                    mounthS = 7;
+                    break;
+                case "August":
+                    mounthS = 8;
+                    break;
+                case "September":
+                    mounthS = 9;
+                    break;
+                case "October":
+                    mounthS = 10;
+                    break;
+                case "November":
+                    mounthS = 11;
+                    break;
+                case "December":
+                    mounthS = 12;
+                    break;
+            }
+            return mounthS;
         }
     }
 }

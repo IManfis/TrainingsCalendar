@@ -26,5 +26,8 @@ namespace TrainingsCalendar.Domain.Abstract
         Trainers_Training GetByIdTrainersTraining(int id);
         void SaveTrainersTraining(Trainers_Training model);
         void DeleteTrainersTraining(int id);
+
+        string GetStringMounth(int mounth);
+        int GetIntMounth(string mounth);
     }
 }
