@@ -11,7 +11,7 @@ namespace TrainingsCalendar.WebUI
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "",
                 defaults: new
                 {
                     controller = "Trainings", 
@@ -19,6 +19,16 @@ namespace TrainingsCalendar.WebUI
                     id = UrlParameter.Optional
                 }
             );
+
+            routes.MapRoute(null,
+             "{controller}/{action}/{mounth}",
+             new
+             {
+                 controller = "Trainings",
+                 action = "Index",
+                 mounth = (string)null
+             }
+             );
         }
     }
 }

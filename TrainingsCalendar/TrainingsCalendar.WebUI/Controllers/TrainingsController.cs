@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Web.Mvc;
 using TrainingsCalendar.Domain.Abstract;
 using TrainingsCalendar.WebUI.Models;
@@ -21,18 +19,20 @@ namespace TrainingsCalendar.WebUI.Controllers
 
         public ViewResult Index()
         {
-            List<CalendarViewModel> list = new List<CalendarViewModel>();
+            var list = new List<CalendarViewModel>();
             foreach (var item in _repository.GetAllEvents())
             {
-                string mounth = _repository.GetStringMounth(DateTime.Now.Month);
-                if (item.StartDate.Month == DateTime.Now.Month)
+                var model = _repository.PartitionEventForMonths(item.StartDate, item.EndDate, DateTime.Now.Month);
+                var mounth = _repository.GetStringMounth(DateTime.Now.Month);
+                if (model.Month == DateTime.Now.Month)
                 {
                     list.Add(new CalendarViewModel
                     {
                         TrainingName = item.Training.TrainingName,
-                        StartDate = item.StartDate.Day,
-                        EndDate = item.EndDate.Day,
+                        StartDate = model.StartDate.Day,
+                        EndDate = model.EndDate.Day,
                         Mounth = mounth,
+                        Year = DateTime.Now.Year,
                         DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month),
                         NowDay = DateTime.Now.Day
                     });
@@ -45,6 +45,7 @@ namespace TrainingsCalendar.WebUI.Controllers
                         StartDate = 1,
                         EndDate = 0,
                         Mounth = mounth,
+                        Year = DateTime.Now.Year,
                         DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)
                     });
                 }
@@ -52,22 +53,28 @@ namespace TrainingsCalendar.WebUI.Controllers
             return View(list);
         }
 
-        public ViewResult PrevMounth(string mounth)
+        public ViewResult PrevMounth(string mounth, int year)
         {
-            int m = _repository.GetIntMounth(mounth);
-            string mounthS = _repository.GetStringMounth(m - 1);
-            List<CalendarViewModel> list = new List<CalendarViewModel>();
+            var m = _repository.GetIntMounth(mounth);
+            if (m == 1)
+            {
+                m = 13;
+            }
+            var monthS = _repository.GetStringMounth(m - 1);
+            var list = new List<CalendarViewModel>();
             foreach (var item in _repository.GetAllEvents())
             {
-                if (item.StartDate.Month == m - 1)
+                var model = _repository.PartitionEventForMonths(item.StartDate, item.EndDate, m - 1);
+                if (model.Month == m - 1)
                 {
                     list.Add(new CalendarViewModel
                     {
                         TrainingName = item.Training.TrainingName,
-                        StartDate = item.StartDate.Day,
-                        EndDate = item.EndDate.Day,
-                        Mounth = mounthS,
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month),
+                        StartDate = model.StartDate.Day,
+                        EndDate = model.EndDate.Day,
+                        Mounth = monthS,
+                        Year = _repository.ChangeYearDown(year,m - 1),
+                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, m - 1),
                         NowDay = DateTime.Now.Day
                     });
                 }
@@ -78,8 +85,9 @@ namespace TrainingsCalendar.WebUI.Controllers
                         TrainingName = item.Training.TrainingName,
                         StartDate = 1,
                         EndDate = 0,
-                        Mounth = mounthS,
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)
+                        Mounth = monthS,
+                        Year = _repository.ChangeYearDown(year, m - 1),
+                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, m - 1)
                     });
                 }
             }
@@ -87,22 +95,28 @@ namespace TrainingsCalendar.WebUI.Controllers
         }
 
 
-        public ViewResult NextMounth(string mounth)
+        public ViewResult NextMounth(string mounth, int year)
         {
-            int m = _repository.GetIntMounth(mounth);
-            string mounthS = _repository.GetStringMounth(m + 1);
-            List<CalendarViewModel> list = new List<CalendarViewModel>();
+            var m = _repository.GetIntMounth(mounth);
+            if (m == 12)
+            {
+                m = 0;
+            }
+            var mounthS = _repository.GetStringMounth(m + 1);
+            var list = new List<CalendarViewModel>();
             foreach (var item in _repository.GetAllEvents())
             {
-                if (item.StartDate.Month == m + 1)
+                var model = _repository.PartitionEventForMonths(item.StartDate, item.EndDate, m + 1);
+                if (model.Month == m + 1)
                 {
                     list.Add(new CalendarViewModel
                     {
                         TrainingName = item.Training.TrainingName,
-                        StartDate = item.StartDate.Day,
-                        EndDate = item.EndDate.Day,
+                        StartDate = model.StartDate.Day,
+                        EndDate = model.EndDate.Day,
                         Mounth = mounthS,
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month),
+                        Year = _repository.ChangeYearUp(year, m + 1),
+                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, m + 1),
                         NowDay = DateTime.Now.Day
                     });
                 }
@@ -114,7 +128,8 @@ namespace TrainingsCalendar.WebUI.Controllers
                         StartDate = 1,
                         EndDate = 0,
                         Mounth = mounthS,
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)
+                        Year = _repository.ChangeYearUp(year, m + 1),
+                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, m + 1)
                     });
                 }
             }

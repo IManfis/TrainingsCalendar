@@ -94,6 +94,7 @@
       <DependentUpon>201506090835035_MigrateDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\DateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

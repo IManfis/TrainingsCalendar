@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.Linq;
+using System.Text;
 using TrainingsCalendar.Domain.Abstract;
 using TrainingsCalendar.Domain.Entities;
+using TrainingsCalendar.Domain.Model;
 
 namespace TrainingsCalendar.Domain.Concrete
 {
@@ -255,6 +258,82 @@ namespace TrainingsCalendar.Domain.Concrete
                     break;
             }
             return mounthS;
+        }
+
+        public DateModel PartitionEventForMonths(DateTime start, DateTime end, int mounth)
+        {
+            DateModel model = null;
+            if (end.Month - start.Month > 0 || end.Month - start.Month < 0)
+            {
+                for (var i = start.Month; i <= end.Month; i++)
+                {
+                    if (i == mounth && i == start.Month)
+                    {
+                        model = new DateModel
+                        {
+                            StartDate = start, 
+                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(start.Year, start.Month), start.Month, start.Year)),
+                            Month = start.Month
+                        };
+                        break;
+                    }
+                    else if (i == mounth && i == end.Month)
+                    {
+                        model = new DateModel
+                        {
+                            StartDate = DateTime.Parse(String.Format("{0}-{1}-{2}", 1, end.Month, end.Year)),
+                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", end.Day, start.Month, start.Year)),
+                            Month = end.Month
+                        };
+                        break;
+                    }
+                    else if(i != start.Month && i != end.Month)
+                    {
+                        model = new DateModel
+                        {
+                            StartDate = DateTime.Parse(String.Format("{0}-{1}-{2}", 1, end.Month, end.Year)),
+                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(end.Year, i), i, end.Year)),
+                            Month = mounth
+                        };
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                model = new DateModel
+                {
+                    StartDate = start, 
+                    EndDate = end,
+                    Month = start.Month
+                };
+            }
+            if (model == null)
+            {
+                model = new DateModel
+                {
+                    Month = mounth + 1
+                };
+            }
+            return (model);
+        }
+
+        public int ChangeYearUp(int year, int month)
+        {
+            if (month == 1)
+            {
+                year += 1;
+            }
+            return (year);
+        }
+
+        public int ChangeYearDown(int year, int month)
+        {
+            if (month == 12)
+            {
+                year -= 1;
+            }
+            return (year);
         }
     }
 }

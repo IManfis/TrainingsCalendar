@@ -5,9 +5,9 @@
 }
 
 <div class="col-lg-offset-5">
-    <a role="button" style="margin-right: 10px" title="Previous mounth" href="@Url.Action("PrevMounth",new{mounth = Model.ElementAt(1).Mounth})" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
-    <h2 style="display: inline-block;">@Model.ElementAt(1).Mounth</h2>
-    <a role="button" style="margin-left: 10px" title="Next mounth" href="@Url.Action("NextMounth", new { mounth = Model.ElementAt(1).Mounth })" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+    <a role="button" style="margin-right: 10px" title="Previous month" href="@Url.Action("PrevMounth", new { mounth = Model.ElementAt(1).Mounth , year = Model.ElementAt(1).Year})" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+    <h2 style="display: inline-block;">@Model.ElementAt(1).Mounth @Model.ElementAt(1).Year</h2>
+    <a role="button" style="margin-left: 10px" title="Next month" href="@Url.Action("NextMounth", new { mounth = Model.ElementAt(1).Mounth, year = Model.ElementAt(1).Year })" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
 </div>
 
 <div class="col-xs-11">
@@ -22,8 +22,8 @@
                    @for (var i = 1; i <= Model.ElementAt(1).DaysInMonth; i++)
                    {
                        if (i != Model.ElementAt(1).NowDay)
-                       {<span style="padding: 0px 10px; display: inline-block;">@i</span>}
-                       else {<span style="padding: 0px 10px; display: inline-block; color: red;">@i</span> }
+                       {<span style="padding: 0px 10px; display: inline-block;" >@i</span>}
+                       else {<span style="padding: 0px 10px; display: inline-block; font-size: 20px; color: red;">@i</span>}
                    }</pre>
             </th>
         </tr>
