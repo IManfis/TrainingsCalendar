@@ -9,6 +9,7 @@ namespace TrainingsCalendar.WebUI.Models
         public int EndDate { get; set; }
         public int DaysInMonth { get; set; }
         public string Mounth { get; set; }
+        public int Month { get; set; }
         public int Year { get; set; }
         public int NowDay { get; set; }
     }

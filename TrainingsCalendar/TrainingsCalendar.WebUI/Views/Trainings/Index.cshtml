@@ -21,9 +21,9 @@
                 <pre>
                    @for (var i = 1; i <= Model.ElementAt(1).DaysInMonth; i++)
                    {
-                       if (i != Model.ElementAt(1).NowDay)
-                       {<span style="padding: 0px 10px; display: inline-block;" >@i</span>}
-                       else {<span style="padding: 0px 10px; display: inline-block; font-size: 20px; color: red;">@i</span>}
+                       if (i == Model.ElementAt(1).NowDay && Model.ElementAt(1).Month == DateTime.Now.Month)
+                       {<span style="padding: 0px 10px; display: inline-block;  font-size: 20px; color: red;" >@i</span>}
+                       else {<span style="padding: 0px 10px; display: inline-block;">@i</span>}
                    }</pre>
             </th>
         </tr>
