@@ -259,69 +259,6 @@ namespace TrainingsCalendar.Domain.Concrete
             return mounthS;
         }
 
-        //public DateModel PartitionEventForMonths(string name, DateTime start, DateTime end, int month)
-        //{
-        //    var cultureinfo = new CultureInfo("ru-RU");
-        //    DateModel model = null;
-        //    if (end.Month - start.Month > 0 || end.Month - start.Month < 0)
-        //    {
-        //        for (var i = start.Month; i <= end.Month; i++)
-        //        {
-        //            if (i == month && i == start.Month)
-        //            {
-        //                model = new DateModel
-        //                {
-        //                    Name = name,
-        //                    StartDate = start, 
-        //                    EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(start.Year, start.Month), start.Month, start.Year),cultureinfo),
-        //                    Month = start.Month
-        //                };
-        //                break;
-        //            }
-        //            else if (i == month && i == end.Month)
-        //            {
-        //                model = new DateModel
-        //                {
-        //                    Name = name,
-        //                    StartDate = DateTime.Parse(String.Format("{0}-{1}-{2}", 1, end.Month, end.Year), cultureinfo),
-        //                    EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", end.Day, start.Month, start.Year), cultureinfo),
-        //                    Month = end.Month
-        //                };
-        //                break;
-        //            }
-        //            else if(i != start.Month && i != end.Month)
-        //            {
-        //                model = new DateModel
-        //                {
-        //                    Name = name,
-        //                    StartDate = DateTime.Parse(String.Format("{0}-{1}-{2}", 1, end.Month, end.Year), cultureinfo),
-        //                    EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(end.Year, i), i, end.Year), cultureinfo),
-        //                    Month = month
-        //                };
-        //                break;
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        model = new DateModel
-        //        {
-        //            Name = name,
-        //            StartDate = start, 
-        //            EndDate = end,
-        //            Month = start.Month
-        //        };
-        //    }
-        //    if (model == null)
-        //    {
-        //        model = new DateModel
-        //        {
-        //            Month = month + 1
-        //        };
-        //    }
-        //    return (model);
-        //}
-
         public int ChangeYearUp(int year, int month)
         {
             if (month == 1)

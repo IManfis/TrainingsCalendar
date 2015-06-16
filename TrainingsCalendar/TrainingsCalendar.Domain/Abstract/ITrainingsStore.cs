@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TrainingsCalendar.Domain.Entities;
 using TrainingsCalendar.Domain.Model;
 
@@ -31,7 +30,6 @@ namespace TrainingsCalendar.Domain.Abstract
 
         string GetStringMounth(int mounth);
         int GetIntMounth(string mounth);
-        //DateModel PartitionEventForMonths(string name, DateTime start, DateTime end, int month);
         int ChangeYearUp(int year, int month);
         int ChangeYearDown(int year, int month);
         List<Event> FilterDate(string name);

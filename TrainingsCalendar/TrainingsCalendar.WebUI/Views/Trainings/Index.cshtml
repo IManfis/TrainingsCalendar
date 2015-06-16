@@ -1,5 +1,4 @@
-﻿@using System.Drawing
-@model IEnumerable<TrainingsCalendar.WebUI.Models.CalendarViewModel>
+﻿@model IEnumerable<TrainingsCalendar.WebUI.Models.CalendarViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -11,35 +10,64 @@
 </div>
 
 <div class="col-xs-11">
-    <table style="margin-left: 10px; margin-right: 20px;">
+    <table class="table table-condensed" style="margin-left: 10px; margin-right: 20px;">
 
         <tr>
             <th>
                 Training
             </th>
-            <th>
-                <pre>
-                   @for (var i = 1; i <= Model.ElementAt(1).DaysInMonth; i++)
-                   {
-                       if (i == Model.ElementAt(1).NowDay && Model.ElementAt(1).Month == DateTime.Now.Month && Model.ElementAt(1).Year == DateTime.Now.Year)
-                       {<span style="padding: 0px 10px; display: inline-block;  font-size: 20px; color: red;" >@i</span>}
-                       else {<span style="padding: 0px 10px; display: inline-block;">@i</span>}
-                   }</pre>
-            </th>
+            @for (var i = 1; i <= Model.ElementAt(1).DaysInMonth; i++)
+            {
+                if (i == Model.ElementAt(1).NowDay && Model.ElementAt(1).Month == DateTime.Now.Month && Model.ElementAt(1).Year == DateTime.Now.Year)
+                {
+                    <th style="color: red;border-right: 4px solid red;">@i</th>
+                }
+                else
+                {
+                    <th>@i</th>
+                }
+            }
         </tr>
-@foreach (var mod in Model)
-{
+        @foreach (var mod in Model)
+        {
             <tr>
                 <td>
                     <p style="margin-right: 20px;">@mod.TrainingName</p>
                 </td>
-                <td>
-                    <div class="progress">
-                        <div class="progress-bar " style="-ms-opacity: 0; opacity: 0; width: @((mod.StartDate - 1) * 100 / Model.ElementAt(1).DaysInMonth)%;"></div>
-                        <div class="progress-bar progress-bar-info" style="width: @((mod.EndDate - @mod.StartDate + 1) * 100 / Model.ElementAt(1).DaysInMonth)%;"></div>
-                    </div>
-                </td>
+                @for (var i = 1; i <= mod.DaysInMonth; i++)
+                {
+                    if (i >= mod.StartDate && i <= mod.EndDate)
+                    {
+                        if (i <= mod.NowDay && mod.Month <= DateTime.Now.Month && mod.Year <= DateTime.Now.Year)
+                        {
+                            if (i == mod.NowDay && mod.Month == DateTime.Now.Month && mod.Year == DateTime.Now.Year)
+                            {
+                                <td style="background-color: powderblue; border-right: 4px solid red;"></td>
+                            }
+                            else
+                            {
+                                <td style="background-color: powderblue;"></td>
+                            }
+                        }
+                        else if (i > mod.NowDay && mod.Month < DateTime.Now.Month && mod.Year <= DateTime.Now.Year)
+                        {
+                                <td style="background-color: powderblue;"></td>
+                        }
+                        else
+                        {
+                                <td style="background-color: royalblue;"></td>
+                        }
+                    }
+                    else if (i == mod.NowDay && mod.Month == DateTime.Now.Month && mod.Year == DateTime.Now.Year)
+                    {
+                        <td style="background-color: white;border-right: 4px solid red;"></td>
+                    }
+                    else
+                    {
+                        <td style="background-color: white;"></td>
+                    }
+                }
             </tr>
-}
+        }
     </table>
 </div>

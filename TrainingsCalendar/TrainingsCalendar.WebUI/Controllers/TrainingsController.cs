@@ -52,7 +52,8 @@ namespace TrainingsCalendar.WebUI.Controllers
                                 Mounth = mounth,
                                 Month = DateTime.Now.Month,
                                 Year = DateTime.Now.Year,
-                                DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)
+                                DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month),
+                                NowDay = DateTime.Now.Day
                             });
                         }    
                     }  
@@ -76,7 +77,7 @@ namespace TrainingsCalendar.WebUI.Controllers
                 {
                     if (list.Find(x => x.TrainingName == model.Name) == null)
                     {
-                        if (model.Month == m - 1)
+                        if (model.Month == m - 1 && model.StartDate.Year == year)
                         {
                             list.Add(new CalendarViewModel
                             {
@@ -100,7 +101,8 @@ namespace TrainingsCalendar.WebUI.Controllers
                                 Mounth = monthS,
                                 Month = m - 1,
                                 Year = _repository.ChangeYearDown(year, m - 1),
-                                DaysInMonth = DateTime.DaysInMonth(year, m - 1)
+                                DaysInMonth = DateTime.DaysInMonth(year, m - 1),
+                                NowDay = DateTime.Now.Day
                             });
                         }   
                     }   
@@ -125,7 +127,7 @@ namespace TrainingsCalendar.WebUI.Controllers
                 {
                     if (list.Find(x => x.TrainingName == model.Name) == null)
                     {
-                        if (model.Month == m + 1)
+                        if (model.Month == m + 1 && model.StartDate.Year == year)
                         {
                             list.Add(new CalendarViewModel
                             {
@@ -149,7 +151,8 @@ namespace TrainingsCalendar.WebUI.Controllers
                                 Mounth = mounthS,
                                 Month = m + 1,
                                 Year = _repository.ChangeYearUp(year, m + 1),
-                                DaysInMonth = DateTime.DaysInMonth(year, m + 1)
+                                DaysInMonth = DateTime.DaysInMonth(year, m + 1),
+                                NowDay = DateTime.Now.Day
                             });
                         }   
                     }   
