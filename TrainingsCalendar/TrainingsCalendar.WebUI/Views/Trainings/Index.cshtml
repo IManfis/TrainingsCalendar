@@ -35,8 +35,8 @@
                 </td>
                 <td>
                     <div class="progress">
-                        <div class="progress-bar " style="-ms-opacity: 0; opacity: 0; width: @((mod.StartDate - 1) * 100 / 31)%;"></div>
-                        <div class="progress-bar progress-bar-info" style="width: @((mod.EndDate - @mod.StartDate + 1) * 100 / 31)%;"></div>
+                        <div class="progress-bar " style="-ms-opacity: 0; opacity: 0; width: @((mod.StartDate - 1) * 100 / Model.ElementAt(1).DaysInMonth)%;"></div>
+                        <div class="progress-bar progress-bar-info" style="width: @((mod.EndDate - @mod.StartDate + 1) * 100 / Model.ElementAt(1).DaysInMonth)%;"></div>
                     </div>
                 </td>
             </tr>

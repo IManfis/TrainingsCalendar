@@ -262,6 +262,7 @@ namespace TrainingsCalendar.Domain.Concrete
 
         public DateModel PartitionEventForMonths(DateTime start, DateTime end, int mounth)
         {
+            var cultureinfo = new System.Globalization.CultureInfo("ru-RU");
             DateModel model = null;
             if (end.Month - start.Month > 0 || end.Month - start.Month < 0)
             {
@@ -272,7 +273,7 @@ namespace TrainingsCalendar.Domain.Concrete
                         model = new DateModel
                         {
                             StartDate = start, 
-                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(start.Year, start.Month), start.Month, start.Year)),
+                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(start.Year, start.Month), start.Month, start.Year),cultureinfo),
                             Month = start.Month
                         };
                         break;
@@ -281,8 +282,8 @@ namespace TrainingsCalendar.Domain.Concrete
                     {
                         model = new DateModel
                         {
-                            StartDate = DateTime.Parse(String.Format("{0}-{1}-{2}", 1, end.Month, end.Year)),
-                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", end.Day, start.Month, start.Year)),
+                            StartDate = DateTime.Parse(String.Format("{0}-{1}-{2}", 1, end.Month, end.Year), cultureinfo),
+                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", end.Day, start.Month, start.Year), cultureinfo),
                             Month = end.Month
                         };
                         break;
@@ -291,8 +292,8 @@ namespace TrainingsCalendar.Domain.Concrete
                     {
                         model = new DateModel
                         {
-                            StartDate = DateTime.Parse(String.Format("{0}-{1}-{2}", 1, end.Month, end.Year)),
-                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(end.Year, i), i, end.Year)),
+                            StartDate = DateTime.Parse(String.Format("{0}-{1}-{2}", 1, end.Month, end.Year), cultureinfo),
+                            EndDate = DateTime.Parse(String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(end.Year, i), i, end.Year), cultureinfo),
                             Month = mounth
                         };
                         break;
