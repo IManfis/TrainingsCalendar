@@ -22,36 +22,42 @@ namespace TrainingsCalendar.WebUI.Controllers
             var list = new List<CalendarViewModel>();
             foreach (var item in _repository.GetAllEvents())
             {
-                var model = _repository.PartitionEventForMonths(item.StartDate, item.EndDate, DateTime.Now.Month);
                 var mounth = _repository.GetStringMounth(DateTime.Now.Month);
-                if (model.Month == DateTime.Now.Month)
+
+                foreach (var model in _repository.PartitionEventForMonths(_repository.FilterDate(item.Training.TrainingName), DateTime.Now.Month))
                 {
-                    list.Add(new CalendarViewModel
+                    if (list.Find(x => x.TrainingName == model.Name) == null)
                     {
-                        TrainingName = item.Training.TrainingName,
-                        StartDate = model.StartDate.Day,
-                        EndDate = model.EndDate.Day,
-                        Mounth = mounth,
-                        Month = DateTime.Now.Month,
-                        Year = DateTime.Now.Year,
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month),
-                        NowDay = DateTime.Now.Day
-                    });
+                        if (model.Month == DateTime.Now.Month)
+                        {
+                            list.Add(new CalendarViewModel
+                            {
+                                TrainingName = model.Name,
+                                StartDate = model.StartDate.Day,
+                                EndDate = model.EndDate.Day,
+                                Mounth = mounth,
+                                Month = DateTime.Now.Month,
+                                Year = DateTime.Now.Year,
+                                DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month),
+                                NowDay = DateTime.Now.Day
+                            });
+                        }
+                        else
+                        {
+                            list.Add(new CalendarViewModel
+                            {
+                                TrainingName = model.Name,
+                                StartDate = 1,
+                                EndDate = 0,
+                                Mounth = mounth,
+                                Month = DateTime.Now.Month,
+                                Year = DateTime.Now.Year,
+                                DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)
+                            });
+                        }    
+                    }  
                 }
-                else
-                {
-                    list.Add(new CalendarViewModel
-                    {
-                        TrainingName = item.Training.TrainingName,
-                        StartDate = 1,
-                        EndDate = 0,
-                        Mounth = mounth,
-                        Month = DateTime.Now.Month,
-                        Year = DateTime.Now.Year,
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)
-                    });
                 }
-            }
             return View(list);
         }
 
@@ -66,33 +72,38 @@ namespace TrainingsCalendar.WebUI.Controllers
             var list = new List<CalendarViewModel>();
             foreach (var item in _repository.GetAllEvents())
             {
-                var model = _repository.PartitionEventForMonths(item.StartDate, item.EndDate, m - 1);
-                if (model.Month == m - 1)
+                foreach (var model in _repository.PartitionEventForMonths(_repository.FilterDate(item.Training.TrainingName), m - 1))
                 {
-                    list.Add(new CalendarViewModel
+                    if (list.Find(x => x.TrainingName == model.Name) == null)
                     {
-                        TrainingName = item.Training.TrainingName,
-                        StartDate = model.StartDate.Day,
-                        EndDate = model.EndDate.Day,
-                        Mounth = monthS,
-                        Month = m - 1,
-                        Year = _repository.ChangeYearDown(year,m - 1),
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, m - 1),
-                        NowDay = DateTime.Now.Day
-                    });
-                }
-                else
-                {
-                    list.Add(new CalendarViewModel
-                    {
-                        TrainingName = item.Training.TrainingName,
-                        StartDate = 1,
-                        EndDate = 0,
-                        Mounth = monthS,
-                        Month = m - 1,
-                        Year = _repository.ChangeYearDown(year, m - 1),
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, m - 1)
-                    });
+                        if (model.Month == m - 1)
+                        {
+                            list.Add(new CalendarViewModel
+                            {
+                                TrainingName = model.Name,
+                                StartDate = model.StartDate.Day,
+                                EndDate = model.EndDate.Day,
+                                Mounth = monthS,
+                                Month = m - 1,
+                                Year = _repository.ChangeYearDown(year, m - 1),
+                                DaysInMonth = DateTime.DaysInMonth(year, m - 1),
+                                NowDay = DateTime.Now.Day
+                            });
+                        }
+                        else
+                        {
+                            list.Add(new CalendarViewModel
+                            {
+                                TrainingName = model.Name,
+                                StartDate = 1,
+                                EndDate = 0,
+                                Mounth = monthS,
+                                Month = m - 1,
+                                Year = _repository.ChangeYearDown(year, m - 1),
+                                DaysInMonth = DateTime.DaysInMonth(year, m - 1)
+                            });
+                        }   
+                    }   
                 }
             }
             return View("Index",list);
@@ -110,33 +121,38 @@ namespace TrainingsCalendar.WebUI.Controllers
             var list = new List<CalendarViewModel>();
             foreach (var item in _repository.GetAllEvents())
             {
-                var model = _repository.PartitionEventForMonths(item.StartDate, item.EndDate, m + 1);
-                if (model.Month == m + 1)
+                foreach (var model in _repository.PartitionEventForMonths(_repository.FilterDate(item.Training.TrainingName), m + 1))
                 {
-                    list.Add(new CalendarViewModel
+                    if (list.Find(x => x.TrainingName == model.Name) == null)
                     {
-                        TrainingName = item.Training.TrainingName,
-                        StartDate = model.StartDate.Day,
-                        EndDate = model.EndDate.Day,
-                        Mounth = mounthS,
-                        Month = m + 1,
-                        Year = _repository.ChangeYearUp(year, m + 1),
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, m + 1),
-                        NowDay = DateTime.Now.Day
-                    });
-                }
-                else
-                {
-                    list.Add(new CalendarViewModel
-                    {
-                        TrainingName = item.Training.TrainingName,
-                        StartDate = 1,
-                        EndDate = 0,
-                        Mounth = mounthS,
-                        Month = m + 1,
-                        Year = _repository.ChangeYearUp(year, m + 1),
-                        DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, m + 1)
-                    });
+                        if (model.Month == m + 1)
+                        {
+                            list.Add(new CalendarViewModel
+                            {
+                                TrainingName = model.Name,
+                                StartDate = model.StartDate.Day,
+                                EndDate = model.EndDate.Day,
+                                Mounth = mounthS,
+                                Month = m + 1,
+                                Year = _repository.ChangeYearUp(year, m + 1),
+                                DaysInMonth = DateTime.DaysInMonth(year, m + 1),
+                                NowDay = DateTime.Now.Day
+                            });
+                        }
+                        else
+                        {
+                            list.Add(new CalendarViewModel
+                            {
+                                TrainingName = model.Name,
+                                StartDate = 1,
+                                EndDate = 0,
+                                Mounth = mounthS,
+                                Month = m + 1,
+                                Year = _repository.ChangeYearUp(year, m + 1),
+                                DaysInMonth = DateTime.DaysInMonth(year, m + 1)
+                            });
+                        }   
+                    }   
                 }
             }
             return View("Index", list);

@@ -31,8 +31,10 @@ namespace TrainingsCalendar.Domain.Abstract
 
         string GetStringMounth(int mounth);
         int GetIntMounth(string mounth);
-        DateModel PartitionEventForMonths(DateTime start, DateTime end, int mounth);
+        //DateModel PartitionEventForMonths(string name, DateTime start, DateTime end, int month);
         int ChangeYearUp(int year, int month);
         int ChangeYearDown(int year, int month);
+        List<Event> FilterDate(string name);
+        List<DateModel> PartitionEventForMonths(List<Event> model, int month);
     }
 }

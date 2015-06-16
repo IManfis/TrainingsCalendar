@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TrainingsCalendar.WebUI.Models
+﻿namespace TrainingsCalendar.WebUI.Models
 {
     public class CalendarViewModel
     {
