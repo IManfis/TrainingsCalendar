@@ -10,5 +10,7 @@
         public int Month { get; set; }
         public int Year { get; set; }
         public int NowDay { get; set; }
+        public string ColorPast { get; set; }
+        public string ColorFuture { get; set; }
     }
 }

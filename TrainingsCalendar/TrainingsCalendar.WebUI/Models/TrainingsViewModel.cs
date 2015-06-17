@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TrainingsCalendar.WebUI.Models
 {
@@ -17,6 +18,12 @@ namespace TrainingsCalendar.WebUI.Models
         public string Partition { get; set; }
 
         [Required]
-        public string TrainingType { get; set; } 
+        public string TrainingType { get; set; }
+
+        public string ColorPast { get; set; }
+
+        public string ColorFuture { get; set; }
+
+        public List<string> ColorList { get; set; }  
     }
 }

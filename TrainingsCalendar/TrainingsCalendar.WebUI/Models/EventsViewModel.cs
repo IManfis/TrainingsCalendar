@@ -17,6 +17,10 @@ namespace TrainingsCalendar.WebUI.Models
         [Required]
         public DateTime EndDate { get; set; }
 
+        public string ColorPast { get; set; }
+
+        public string ColorFuture { get; set; }
+
         public List<TrainingList> TrainingList { get; set; }
     }
 }

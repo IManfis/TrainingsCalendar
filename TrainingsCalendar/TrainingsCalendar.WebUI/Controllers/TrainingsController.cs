@@ -38,6 +38,8 @@ namespace TrainingsCalendar.WebUI.Controllers
                                 Mounth = mounth,
                                 Month = DateTime.Now.Month,
                                 Year = DateTime.Now.Year,
+                                ColorFuture = item.Training.ColorFuture,
+                                ColorPast = item.Training.ColorPast,
                                 DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month),
                                 NowDay = DateTime.Now.Day
                             });
@@ -52,6 +54,8 @@ namespace TrainingsCalendar.WebUI.Controllers
                                 Mounth = mounth,
                                 Month = DateTime.Now.Month,
                                 Year = DateTime.Now.Year,
+                                ColorFuture = item.Training.ColorFuture,
+                                ColorPast = item.Training.ColorPast,
                                 DaysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month),
                                 NowDay = DateTime.Now.Day
                             });

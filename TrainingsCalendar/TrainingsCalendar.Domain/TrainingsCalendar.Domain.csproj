@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201506090835035_MigrateDB.Designer.cs">
       <DependentUpon>201506090835035_MigrateDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506171738206_1.cs" />
+    <Compile Include="Migrations\201506171738206_1.Designer.cs">
+      <DependentUpon>201506171738206_1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\DateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506090835035_MigrateDB.resx">
       <DependentUpon>201506090835035_MigrateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506171738206_1.resx">
+      <DependentUpon>201506171738206_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

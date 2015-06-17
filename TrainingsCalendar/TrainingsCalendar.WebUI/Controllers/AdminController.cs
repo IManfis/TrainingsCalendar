@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -29,14 +31,16 @@ namespace TrainingsCalendar.WebUI.Controllers
         public ViewResult TrainingList()
         {
             Mapper.CreateMap<Training, TrainingsViewModel>();
-            var users = Mapper.Map<IEnumerable<Training>, List<TrainingsViewModel>>(_store.GetAllTrainings());
+            var users = Mapper.Map<IEnumerable<Training>, List<TrainingsViewModel>>(_store.GetAllTrainings());  
             return View(users);
         }
 
         public ViewResult EditTraining(int id)
         {
+            List<string> list = Enum.GetNames(typeof(KnownColor)).Where(item => !item.StartsWith("Control")).OrderBy(item => item).Select(c => c.ToLower()).ToList();
             Mapper.CreateMap<Training, TrainingsViewModel>();
             var users = Mapper.Map<Training, TrainingsViewModel>(_store.GetByIdTraining(id));
+            users.ColorList = list;
             return View(users);
         }
 
@@ -60,7 +64,8 @@ namespace TrainingsCalendar.WebUI.Controllers
 
         public ViewResult CreateTraining()
         {
-            return View("EditTraining",new TrainingsViewModel());
+            List<string> list = Enum.GetNames(typeof(KnownColor)).Where(item => !item.StartsWith("Control")).OrderBy(item => item).Select(c => c.ToLower()).ToList();
+            return View("EditTraining",new TrainingsViewModel{ColorList = list});
         }
 
         public ActionResult DeleteTraining(int id)
@@ -133,7 +138,9 @@ namespace TrainingsCalendar.WebUI.Controllers
         public ViewResult EventsList()
         {
             Mapper.CreateMap<Event, EventsViewModel>()
-                .ForMember(x => x.Training, x => x.MapFrom(m => m.Training.TrainingName));
+                .ForMember(x => x.Training, x => x.MapFrom(m => m.Training.TrainingName))
+                .ForMember(x => x.ColorPast, x => x.MapFrom(m => m.Training.ColorPast))
+                .ForMember(x => x.ColorFuture, x => x.MapFrom(m => m.Training.ColorFuture));
             var users = Mapper.Map<IEnumerable<Event>, List<EventsViewModel>>(_store.GetAllEvents());
             return View(users);
         }

@@ -20,6 +20,10 @@ namespace TrainingsCalendar.Domain.Entities
 
         public string Partition { get; set; }
 
+        public string ColorPast { get; set; }
+
+        public string ColorFuture { get; set; }
+
         public string TrainingType { get; set; }
 
         public virtual ICollection<Event> Event { get; set; }

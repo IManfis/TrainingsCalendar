@@ -22,6 +22,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Partition)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorPast)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ColorFuture)
+            </th>
             <th></th>
         </tr>
 
@@ -39,6 +45,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Partition)
+                </td>
+                <td style="background-color: @item.ColorPast">
+                    @Html.DisplayFor(modelItem => item.ColorPast)
+                </td>
+                <td style="background-color: @item.ColorFuture">
+                    @Html.DisplayFor(modelItem => item.ColorFuture)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditTraining", new { id = item.ID }) |

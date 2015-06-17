@@ -44,8 +44,31 @@
             @Html.LabelFor(model => model.TrainingType)
         </div>
         <div class="editor-field">
-            <input type="text" name="TrainingType" class="form-control" value="@Model.TrainingType" style="margin-bottom: 10px;" />
+            <input type="text" name="TrainingType" class="form-control" value="@Model.TrainingType" style="margin-bottom: 10px;"/>
             @Html.ValidationMessageFor(model => model.TrainingType)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ColorPast)
+        </div>
+        <div class="editor-field">
+            <select name="ColorPast">
+                @foreach (string item in Model.ColorList)
+                {
+                    <option name="ColorPast" value="@item" style="background-color: @item">@item</option>
+                }
+            </select>
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ColorFuture)
+        </div>
+        <div class="editor-field">
+            <select name="ColorFuture">
+                @foreach (string item in Model.ColorList)
+                {
+                    <option name="ColorFuture" value="@item" style="background-color: @item">@item</option>
+                }
+            </select>
         </div>
 
         <p>

@@ -61,6 +61,8 @@ namespace TrainingsCalendar.Domain.Concrete
                     dbEntry.About = model.About;
                     dbEntry.Partition = model.Partition;
                     dbEntry.TrainingType = model.TrainingType;
+                    dbEntry.ColorPast = model.ColorPast;
+                    dbEntry.ColorFuture = model.ColorFuture;
                 }
             }
             _context.SaveChanges();
