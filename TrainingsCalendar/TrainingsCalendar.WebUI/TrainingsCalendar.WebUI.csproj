@@ -169,8 +169,10 @@
     <Compile Include="Infrastructure\Concrete\FormsAuthProvider.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Models\CalendarViewModel.cs" />
+    <Compile Include="Models\DateViewModel.cs" />
     <Compile Include="Models\EventsViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\MonthViewModel.cs" />
     <Compile Include="Models\TrainersList.cs" />
     <Compile Include="Models\TrainersTrainingViewModel.cs" />
     <Compile Include="Models\TrainersViewModel.cs" />

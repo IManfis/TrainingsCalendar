@@ -138,7 +138,7 @@ namespace TrainingsCalendar.WebUI.Controllers
         public ViewResult EventsList()
         {
             Mapper.CreateMap<Event, EventsViewModel>()
-                .ForMember(x => x.Training, x => x.MapFrom(m => m.Training.TrainingName))
+                .ForMember(x => x.TrainingName, x => x.MapFrom(m => m.Training.TrainingName))
                 .ForMember(x => x.ColorPast, x => x.MapFrom(m => m.Training.ColorPast))
                 .ForMember(x => x.ColorFuture, x => x.MapFrom(m => m.Training.ColorFuture));
             var users = Mapper.Map<IEnumerable<Event>, List<EventsViewModel>>(_store.GetAllEvents());
@@ -148,7 +148,7 @@ namespace TrainingsCalendar.WebUI.Controllers
         public ViewResult EditEvents(int id)
         {
             Mapper.CreateMap<Event, EventsViewModel>()
-                .ForMember(x => x.Training, x => x.MapFrom(m => m.Training.TrainingName));
+                .ForMember(x => x.TrainingName, x => x.MapFrom(m => m.Training.TrainingName));
             var users = Mapper.Map<Event, EventsViewModel>(_store.GetByIdEvent(id));
             return View(users);
         }

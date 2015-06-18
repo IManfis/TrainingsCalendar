@@ -33,6 +33,6 @@ namespace TrainingsCalendar.Domain.Abstract
         int ChangeYearUp(int year, int month);
         int ChangeYearDown(int year, int month);
         List<Event> FilterDate(string name);
-        List<DateModel> PartitionEventForMonths(List<Event> model, int month);
+        DateModel PartitionEventForMonths(List<Event> model);
     }
 }

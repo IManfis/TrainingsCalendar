@@ -1,142 +1,181 @@
-﻿@model IEnumerable<TrainingsCalendar.WebUI.Models.CalendarViewModel>
+﻿@model TrainingsCalendar.WebUI.Models.CalendarViewModel
 @{
     ViewBag.Title = "Index";
 }
 <div class="col-lg-4" style="margin-top: 40px;">
-    @foreach (var item in Model)
+    @foreach (var item in Model.DateViewModels)
     {
-        <h3 style="margin-left: 20px;">@item.TrainingName</h3>
+        <h3 style="margin-left: 20px;">@item.DateModels.Name</h3>
     }
 </div>
+
 <div class="col-lg-8" style="overflow: auto;">
     <table class="table table-condensed" style="margin-left: 0; margin-right: 0;">
-        
+
         <tr>
-            <th colspan="@Model.ElementAt(0).DaysInMonth" style="border-right: 1px solid #dddddd; border-left: 1px solid #dddddd;">
-                <div align="center">@Model.ElementAt(0).Mounth</div>
-            </th>
-        </tr>
-        <tr>
-            @for (var i = 1; i <= Model.ElementAt(1).DaysInMonth; i++)
+            @foreach (var item in Model.MonthViewModel)
             {
-                if (i == Model.ElementAt(1).NowDay && Model.ElementAt(1).Month == DateTime.Now.Month && Model.ElementAt(1).Year == DateTime.Now.Year)
+                if (item.MonthInt >= DateTime.Now.Month)
                 {
-                    <th style="color: red; border-right: 4px solid red; width: 100%; padding: 0;">
-                        <div align="center">@i</div>
-                    </th>
-                }
-                else
-                {
-                    <th style="width: 100%; padding: 0;">
-                        <div align="center">@i</div>
+                    <th colspan="@item.DaysInMonth" style="border-right: 1px solid #dddddd; border-left: 1px solid #dddddd;">
+                        <div align="center" style="width: 850px;">@item.MonthString</div>
                     </th>
                 }
             }
         </tr>
-        @foreach (var mod in Model)
+        <tr>
+            @foreach (var item in Model.MonthViewModel)
+            {
+                if(item.MonthInt >= DateTime.Now.Month)
+                {
+                     for (var i = 1; i <= item.DaysInMonth; i++)
+                     {
+                         if (i == DateTime.Now.Day && item.MonthInt == DateTime.Now.Month && item.Year == DateTime.Now.Year)
+                         {
+                             <th style="color: red; border-right: 4px solid red; width: 100%; padding: 0;">
+                                 <div align="center">@i</div>
+                             </th>
+                         }
+                         else
+                         {
+                             <th style="width: 100%; padding: 0;">
+                                 <div align="center">@i</div>
+                             </th>
+                         }
+                     }   
+                }
+            }
+        </tr>
+
+        @foreach (var mode in Model.DateViewModels)
         {
             <tr>
-                @for (var i = 1; i <= mod.DaysInMonth; i++)
-                {
-                    if (i >= mod.StartDate && i <= mod.EndDate)
-                    {
-                        if (i <= mod.NowDay && mod.Month <= DateTime.Now.Month && mod.Year <= DateTime.Now.Year)
-                        {
-                            if (i == mod.NowDay && mod.Month == DateTime.Now.Month && mod.Year == DateTime.Now.Year)
-                            {
-                                if (i == mod.StartDate)
-                                {
-                                    <td style="border-right: 4px solid red; width: 30px; height: 50px; padding: 0px;">
-                                        <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 4px 0 0 4px;"></div>
-                                    </td>
+                         @for (var j = DateTime.Now.Month; j <= 12; j++)
+                         {
+                             var o = 0;
+                             foreach (var item in mode.DateModels.StartEndModels.OrderBy(x => x.Month))
+                             {
+                                 if (item.Month == j)
+                                 {
+                                     for (var i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year, j); i++)
+                                     {
+
+                                         if (i >= item.StartDate.Day && i <= item.EndDate.Day)
+                                         {
+                                             if (i <= DateTime.Now.Day && item.Month <= DateTime.Now.Month && item.StartDate.Year <= DateTime.Now.Year)
+                                             {
+                                                 if (i == DateTime.Now.Day && item.Month == DateTime.Now.Month && item.StartDate.Year == DateTime.Now.Year)
+                                                 {
+                                                     if (i == item.StartDate.Day)
+                                                     {
+                                                        <td style="border-right: 4px solid red; width: 30px; height: 50px; padding: 0px;">
+                                                            <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 4px 0 0 4px;"></div>
+                                                        </td>
+                                                     }
+                                                     else if (i == item.EndDate.Day)
+                                                     {
+                                                        <td style="border-right: 4px solid red; width: 30px; height: 50px; padding: 0px;">
+                                                            <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 0 4px 4px 0;"></div>
+                                                        </td>
+                                                     }
+                                                     else
+                                                     {
+                                                        <td style="border-right: 4px solid red; width: 30px; height: 50px; padding: 0px;">
+                                                            <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px;"></div>
+                                                        </td>
+                                                     }
+                                                 }
+                                                 else
+                                                 {
+                                                     if (i == item.StartDate.Day)
+                                                     {
+                                                        <td style="width: 30px; height: 50px; padding: 0px;">
+                                                            <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 4px 0 0 4px;"></div>
+                                                        </td>
+                                                     }
+                                                     else if (i == item.EndDate.Day)
+                                                     {
+                                                        <td style="width: 30px; height: 50px; padding: 0px;">
+                                                            <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 0 4px 4px 0;"></div>
+                                                        </td>
+                                                     }
+                                                     else
+                                                     {
+                                                        <td style="width: 30px; height: 50px; padding: 0px;">
+                                                            <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px;"></div>
+                                                        </td>
+                                                     }
+                                                 }
+                                             }
+                                             else if (i > DateTime.Now.Day && item.Month < DateTime.Now.Month && item.StartDate.Year <= DateTime.Now.Year)
+                                             {
+                                                 if (i == item.StartDate.Day)
+                                                 {
+                                                    <td style="width: 30px; height: 50px; padding: 0px;">
+                                                        <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 4px 0 0 4px;"></div>
+                                                    </td>
+                                                 }
+                                                 else if (i == item.EndDate.Day)
+                                                 {
+                                                    <td style="width: 30px; height: 50px; padding: 0px;">
+                                                        <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 0 4px 4px 0;"></div>
+                                                    </td>
+                                                 }
+                                                 else
+                                                 {
+                                                    <td style="width: 30px; height: 50px; padding: 0px;">
+                                                        <div style="background-color: @mode.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px;"></div>
+                                                    </td>
+                                                 }
+                                             }
+                                             else
+                                             {
+                                                 if (i == item.StartDate.Day)
+                                                 {
+                                                    <td style="width: 30px; height: 50px; padding: 0px;">
+                                                        <div style="background-color: @mode.ColorFuture; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 4px 0 0 4px;"></div>
+                                                    </td>
+                                                 }
+                                                 else if (i == item.EndDate.Day)
+                                                 {
+                                                    <td style="width: 30px; height: 50px; padding: 0px;">
+                                                        <div style="background-color: @mode.ColorFuture; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 0 4px 4px 0;"></div>
+                                                    </td>
+                                                 }
+                                                 else
+                                                 {
+                                                    <td style="width: 30px; height: 50px; padding: 0px;">
+                                                        <div style="background-color: @mode.ColorFuture; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px;"></div>
+                                                    </td>
+                                                 }
+                                             }
+                                         }
+                                         else if (i == DateTime.Now.Day && item.Month == DateTime.Now.Month && item.StartDate.Year == DateTime.Now.Year)
+                                         {
+                                            <td style="border-right: 4px solid red; width: 30px; height: 50px; padding: 0px;"></td>
+                                         }
+                                         else
+                                         {
+                                            <td style="background-color: white; width: 30px; height: 50px; padding: 0px;"></td>
+                                         }
+                                     }
+                                     break;
+                                 }
+                                 else
+                                 {
+                                     o++;
+                                     if (o == mode.DateModels.StartEndModels.Count())
+                                     {
+                                         for (var i = 1; i <= DateTime.DaysInMonth(DateTime.Now.Year, j); i++)
+                                         {
+                                            <td style="background-color: white; width: 30px; height: 50px; padding: 0;"></td>
+                                         }
+                                    }
+                                    continue;
                                 }
-                                else if (i == mod.EndDate)
-                                {
-                                    <td style="border-right: 4px solid red; width: 30px; height: 50px; padding: 0px;">
-                                        <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 0 4px 4px 0;"></div>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td style="border-right: 4px solid red; width: 30px; height: 50px; padding: 0px;">
-                                        <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px;"></div>
-                                    </td>
-                                }
+
                             }
-                            else
-                            {
-                                if (i == mod.StartDate)
-                                {
-                                    <td style="width: 30px; height: 50px; padding: 0px;">
-                                        <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 4px 0 0 4px;"></div>
-                                    </td>
-                                }
-                                else if (i == mod.EndDate)
-                                {
-                                    <td style="width: 30px; height: 50px; padding: 0px;">
-                                        <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 0 4px 4px 0;"></div>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td style="width: 30px; height: 50px; padding: 0px;">
-                                        <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px;"></div>
-                                    </td>
-                                }
-                            }
-                        }
-                        else if (i > mod.NowDay && mod.Month < DateTime.Now.Month && mod.Year <= DateTime.Now.Year)
-                        {
-                            if (i == mod.StartDate)
-                            {
-                                <td style="width: 30px; height: 50px; padding: 0px;">
-                                    <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 4px 0 0 4px;"></div>
-                                </td>
-                            }
-                            else if (i == mod.EndDate)
-                            {
-                                <td style="width: 30px; height: 50px; padding: 0px;">
-                                    <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 0 4px 4px 0;"></div>
-                                </td>
-                            }
-                            else
-                            {
-                                <td style="width: 30px; height: 50px; padding: 0px;">
-                                    <div style="background-color: @mod.ColorPast; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px;"></div>
-                                </td>
-                            }
-                        }
-                        else
-                        {
-                            if (i == mod.StartDate)
-                            {
-                                <td style="width: 30px; height: 50px; padding: 0px;">
-                                    <div style="background-color: @mod.ColorFuture; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 4px 0 0 4px;"></div>
-                                </td>
-                            }
-                            else if (i == mod.EndDate)
-                            {
-                                <td style="width: 30px; height: 50px; padding: 0px;">
-                                    <div style="background-color: @mod.ColorFuture; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px; border-radius: 0 4px 4px 0;"></div>
-                                </td>
-                            }
-                            else
-                            {
-                                <td style="width: 30px; height: 50px; padding: 0px;">
-                                    <div style="background-color: @mod.ColorFuture; width: 30px; height: 46px; margin-top: 2px; margin-bottom: 2px;"></div>
-                                </td>
-                            }
-                        }
-                    }
-                    else if (i == mod.NowDay && mod.Month == DateTime.Now.Month && mod.Year == DateTime.Now.Year)
-                    {
-                        <td style="border-right: 4px solid red; width: 30px; height: 50px; padding: 0px;"></td>
-                    }
-                    else
-                    {
-                        <td style="background-color: white; width: 30px; height: 50px; padding: 0px;"></td>
-                    }
-                }
+                         }               
             </tr>
         }
     </table>

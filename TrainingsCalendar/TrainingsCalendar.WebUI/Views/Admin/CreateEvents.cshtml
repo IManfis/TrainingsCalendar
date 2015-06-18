@@ -13,7 +13,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        @Html.LabelFor(model => model.Training)
+        @Html.LabelFor(model => model.TrainingName)
         <div class="editor-label">
             <select name="TrainingID">
                 @foreach (var item in Model.TrainingList)

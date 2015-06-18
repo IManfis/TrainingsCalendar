@@ -9,7 +9,7 @@ namespace TrainingsCalendar.WebUI.Models
         public int ID { get; set; }
 
         public int TrainingID { get; set; }
-        public string Training { get; set; }
+        public string TrainingName { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }

@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TrainingsCalendar.Domain.Model
 {
     public class DateModel
     {
         public string Name { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public int Month { get; set; }
+        public List<StartEndModel> StartEndModels { get; set; }
     }
 }

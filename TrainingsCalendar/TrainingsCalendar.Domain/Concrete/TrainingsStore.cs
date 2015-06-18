@@ -284,88 +284,90 @@ namespace TrainingsCalendar.Domain.Concrete
             return _repository.Events.Where(x => x.Training.TrainingName == name).ToList();
         }
 
-        public List<DateModel> PartitionEventForMonths(List<Event> model, int month)
+        public DateModel PartitionEventForMonths(List<Event> events)
         {
-
-            var modelS = new List<DateModel>();
-            foreach (var item in model)
+            List<StartEndModel> datemodel = new List<StartEndModel>();
+            string name = null;
+            var cultureinfo = new CultureInfo("ru-RU");
+            foreach (var item in events)
             {
-                var cultureinfo = new CultureInfo("ru-RU");
-                if (item.EndDate.Month - item.StartDate.Month > 0 || item.EndDate.Month - item.StartDate.Month < 0)
+                name = item.Training.TrainingName;
+                for (var i = 1; i <= 12; i++)
                 {
-                    for (var i = item.StartDate.Month; i <= item.EndDate.Month; i++)
+                    if (i >= item.StartDate.Month && i <= item.EndDate.Month)
                     {
-                        if (i == month && i == item.StartDate.Month)
+                        if (item.EndDate.Month - item.StartDate.Month > 0 || item.EndDate.Month - item.StartDate.Month < 0)
                         {
-                            modelS.Add(new DateModel
+                            if (i == item.StartDate.Month)
                             {
-                                Name = item.Training.TrainingName,
-                                StartDate = item.StartDate,
-                                EndDate =
-                                    DateTime.Parse(
-                                        String.Format("{0}-{1}-{2}",
+                                var date = new StartEndModel
+                                {
+                                    StartDate = item.StartDate,
+                                    EndDate = DateTime.Parse(
+                                            String.Format("{0}-{1}-{2}",
                                             DateTime.DaysInMonth(item.StartDate.Year, item.StartDate.Month),
-                                            item.StartDate.Month, item.StartDate.Year), cultureinfo),
-                                Month = item.StartDate.Month
-                            });
-                            break;
-                        }
-                        else if (i == month && i == item.EndDate.Month)
-                        {
-                            modelS.Add(new DateModel
+                                            item.StartDate.Month,
+                                            item.StartDate.Year),
+                                            cultureinfo),
+                                    Month = i,
+                                    DaysInMonth = DateTime.DaysInMonth(item.StartDate.Year, item.StartDate.Month)
+                                };
+                                datemodel.Add(date);
+                            }
+                            if (i == item.EndDate.Month)
                             {
-                                Name = item.Training.TrainingName,
-                                StartDate =
-                                    DateTime.Parse(
-                                        String.Format("{0}-{1}-{2}", 1, item.EndDate.Month, item.EndDate.Year),
-                                        cultureinfo),
-                                EndDate =
-                                    DateTime.Parse(
-                                        String.Format("{0}-{1}-{2}", item.EndDate.Day, item.StartDate.Month,
-                                            item.StartDate.Year), cultureinfo),
-                                Month = item.EndDate.Month
-                            });
-                            break;
-                        }
-                        else if (i != item.StartDate.Month && i != item.EndDate.Month)
-                        {
-                            modelS.Add(new DateModel
+                                var date = new StartEndModel
+                                {
+                                    StartDate = DateTime.Parse(
+                                            String.Format("{0}-{1}-{2}",
+                                            1,
+                                            item.EndDate.Month,
+                                            item.EndDate.Year),
+                                            cultureinfo),
+                                    EndDate = item.EndDate,
+                                    Month = i,
+                                    DaysInMonth = DateTime.DaysInMonth(item.EndDate.Year, item.EndDate.Month)
+                                };
+                                datemodel.Add(date);
+                            }
+                            if (i != item.StartDate.Month && i != item.EndDate.Month)
                             {
-                                Name = item.Training.TrainingName,
-                                StartDate =
-                                    DateTime.Parse(
-                                        String.Format("{0}-{1}-{2}", 1, item.EndDate.Month, item.EndDate.Year),
-                                        cultureinfo),
-                                EndDate =
-                                    DateTime.Parse(
-                                        String.Format("{0}-{1}-{2}", DateTime.DaysInMonth(item.EndDate.Year, i), i,
-                                            item.EndDate.Year), cultureinfo),
-                                Month = month
-                            });
-                            break;
+                                var date = new StartEndModel
+                                {
+                                    StartDate = DateTime.Parse(
+                                            String.Format("{0}-{1}-{2}",
+                                            1,
+                                            i,
+                                            item.EndDate.Year),
+                                            cultureinfo),
+                                    EndDate = DateTime.Parse(
+                                            String.Format("{0}-{1}-{2}",
+                                            DateTime.DaysInMonth(item.EndDate.Year, i),
+                                            i,
+                                            item.EndDate.Year),
+                                            cultureinfo),
+                                    Month = i,
+                                    DaysInMonth = DateTime.DaysInMonth(item.EndDate.Year,i)
+                                };
+                                datemodel.Add(date);
+                            }
                         }
+                        else
+                        {
+                            var date = new StartEndModel
+                            {
+                                StartDate = item.StartDate,
+                                EndDate = item.EndDate,
+                                Month = i,
+                                DaysInMonth = DateTime.DaysInMonth(item.StartDate.Year, item.StartDate.Month)
+                            };
+                            datemodel.Add(date);
+                        }   
                     }
                 }
-                else
-                {
-                    modelS.Add(new DateModel
-                    {
-                        Name = item.Training.TrainingName,
-                        StartDate = item.StartDate,
-                        EndDate = item.EndDate,
-                        Month = item.StartDate.Month
-                    });
-                }
             }
-            if (modelS.Count == 0)
-            {
-                modelS.Add(new DateModel
-                {
-                    Name = model.ElementAt(0).Training.TrainingName,
-                    Month = month + 1
-                });
-            }
-            return (modelS);
+            var model = new DateModel { Name = name, StartEndModels = datemodel };
+            return (model);
         }
     }
 }
