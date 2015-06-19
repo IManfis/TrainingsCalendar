@@ -1,4 +1,4 @@
-﻿@model TrainingsCalendar.WebUI.Models.EventsViewModel
+﻿@model IList<TrainingsCalendar.WebUI.Models.StartEndModel>
 
 @{
     ViewBag.Title = "CreateEvents";
@@ -7,43 +7,42 @@
 
 <h2>CreateEvents</h2>
 
-@using (Html.BeginForm("EditEvents", "Admin", FormMethod.Post))
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        @Html.LabelFor(model => model.TrainingName)
+    if (Model.Count == 1)
+    {
+        <label>TrainingName</label>
         <div class="editor-label">
-            <select name="TrainingID">
-                @foreach (var item in Model.TrainingList)
-                {
-                    <option name="TrainingID" value="@item.TrainingID">@item.TrainingName</option>
-                }
-            </select>
+            @foreach (var VARIABLE in Model)
+            {
+                <select name="[0]TrainingID">
+                    @foreach (var item in VARIABLE.TrainingList)
+                    {
+                        <option name="[0]TrainingID" value="@item.TrainingID">@item.TrainingName</option>
+                    }
+                </select>
+            }
         </div>
+        for (int i = 0; i < 3; i++)
+        {
+            <div class="editor-label">
+                <label>StartDate</label>
+            </div>
+            <div class="editor-field">
+                <input type="date" name="[@i].StartDate" style="margin-bottom: 10px;" />
+            </div>
 
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.StartDate)
-        </div>
-        <div class="editor-field">
-            <input type="date" name="StartDate" value="@Model.StartDate" style="margin-bottom: 10px;" />
-            @Html.ValidationMessageFor(model => model.StartDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.EndDate)
-        </div>
-        <div class="editor-field">
-            <input type="date" name="EndDate" value="@Model.EndDate" style="margin-bottom: 10px;" />
-            @Html.ValidationMessageFor(model => model.EndDate)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+            <div class="editor-label">
+                <label>EndDate</label>
+            </div>
+            <div class="editor-field">
+                <input type="date" name="[@i].EndDate" style="margin-bottom: 10px;" />
+            </div>
+        }
+    }
+    <p>
+        <input type="submit" value="Create" />
+    </p>
 }
 
 <div>

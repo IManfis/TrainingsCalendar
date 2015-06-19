@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Web.Mvc;
@@ -177,7 +178,20 @@ namespace TrainingsCalendar.WebUI.Controllers
                 .ForMember(x => x.TrainingID, x => x.MapFrom(m => m.ID))
                 .ForMember(x => x.TrainingName, x => x.MapFrom(m => m.TrainingName));
             var users = Mapper.Map<IEnumerable<Training>, List<TrainingList>>(_store.GetAllTrainings());
-            return View(new EventsViewModel{TrainingList = users});
+            //var model = new List<StartEndModel>();
+            //var events = new List<EventListViewModel>();
+            //var modelevent = new EventListViewModel{StartEndModels = model, TrainingList = users};
+            //events.Add(modelevent);
+            var model = new StartEndModel {TrainingList = users};
+            var events = new List<StartEndModel>();
+            events.Add(model);
+            return View(events);
+        }
+        [HttpPost]
+        public ViewResult CreateEvents(List<StartEndModel> model)
+        {
+            var events = new List<StartEndModel>();
+            return View(events);
         }
 
         public ActionResult DeleteEvents(int id)
