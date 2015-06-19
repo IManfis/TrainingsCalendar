@@ -15,7 +15,7 @@
         <div class="editor-label">
             @foreach (var VARIABLE in Model)
             {
-                <select name="[0]TrainingID">
+                <select name="[0].TrainingID">
                     @foreach (var item in VARIABLE.TrainingList)
                     {
                         <option name="[0]TrainingID" value="@item.TrainingID">@item.TrainingName</option>

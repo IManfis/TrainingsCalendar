@@ -178,20 +178,30 @@ namespace TrainingsCalendar.WebUI.Controllers
                 .ForMember(x => x.TrainingID, x => x.MapFrom(m => m.ID))
                 .ForMember(x => x.TrainingName, x => x.MapFrom(m => m.TrainingName));
             var users = Mapper.Map<IEnumerable<Training>, List<TrainingList>>(_store.GetAllTrainings());
-            //var model = new List<StartEndModel>();
-            //var events = new List<EventListViewModel>();
-            //var modelevent = new EventListViewModel{StartEndModels = model, TrainingList = users};
-            //events.Add(modelevent);
             var model = new StartEndModel {TrainingList = users};
             var events = new List<StartEndModel>();
             events.Add(model);
             return View(events);
         }
         [HttpPost]
-        public ViewResult CreateEvents(List<StartEndModel> model)
+        public ActionResult CreateEvents(List<StartEndModel> model)
         {
-            var events = new List<StartEndModel>();
-            return View(events);
+            var id = model.ElementAt(0).TrainingID;
+            foreach (var item in model)
+            {
+                if (item.StartDate.Year != 1 && item.EndDate.Year != 1)
+                {
+                    var users = new Event
+                    {
+                        TrainingID = id,
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate
+                    };
+                    _store.SaveEvent(users);
+                }
+            }
+            
+            return RedirectToAction("EventsList");
         }
 
         public ActionResult DeleteEvents(int id)
